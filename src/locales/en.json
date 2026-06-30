@@ -1,0 +1,168 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tag": "Digital Agency",
+    "title1": "We Build",
+    "title2": "The Way Your",
+    "title3": "Brand Appears.",
+    "description": "We craft high-end digital experiences that elevate brands and drive measurable growth.",
+    "ctaWhatsapp": "Contact via WhatsApp",
+    "ctaWork": "View Work",
+    "clients": "Our Clients",
+    "clientsCount": "+80"
+  },
+  "stats": {
+    "projects": "Completed Projects",
+    "clients": "Happy Clients",
+    "experience": "Years Experience",
+    "satisfaction": "Satisfaction Rate"
+  },
+  "whyUs": {
+    "tag": "Why MarkaSphere",
+    "title": "Why Choose Us?",
+    "subtitle": "We combine creativity with strategy to deliver digital solutions that achieve real results",
+    "items": [
+      {
+        "title": "Extensive Experience",
+        "desc": "A team of creators and engineers with over 12 years of experience in design and development."
+      },
+      {
+        "title": "Custom Solutions",
+        "desc": "We don't offer ready-made solutions. Every project is built from scratch according to your needs."
+      },
+      {
+        "title": "Uncompromised Quality",
+        "desc": "We commit to the highest quality standards in every detail of design and development."
+      }
+    ]
+  },
+  "services": {
+    "tag": "What We Do",
+    "title": "Our Services",
+    "subtitle": "We provide integrated digital solutions combining creativity and strategy",
+    "items": [
+      {
+        "title": "Web Development",
+        "desc": "Integrated web solutions using the latest technologies and modern frameworks for maximum performance."
+      },
+      {
+        "title": "Visual Design",
+        "desc": "Distinctive brand identities and user experience designs that leave a lasting impression."
+      },
+      {
+        "title": "App Development",
+        "desc": "Mobile and desktop applications with modern technologies and high performance."
+      },
+      {
+        "title": "Digital Marketing",
+        "desc": "Well-planned marketing strategies that achieve your goals and deliver your message to the right audience."
+      },
+      {
+        "title": "Video Production",
+        "desc": "Promotional and advertising videos with cinematic quality that tell your brand story."
+      },
+      {
+        "title": "Creative Management",
+        "desc": "Comprehensive digital presence management with creative content that engages the audience."
+      }
+    ]
+  },
+  "process": {
+    "tag": "Our Process",
+    "title": "Our Process",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Discovery",
+        "desc": "We deeply understand your vision and goals"
+      },
+      {
+        "step": "02",
+        "title": "Strategy",
+        "desc": "We create a clear and well-thought roadmap"
+      },
+      {
+        "step": "03",
+        "title": "Design",
+        "desc": "We craft elegant and modern designs"
+      },
+      {
+        "step": "04",
+        "title": "Development",
+        "desc": "We transform the design into digital reality"
+      },
+      {
+        "step": "05",
+        "title": "Launch",
+        "desc": "We launch the project and ensure optimal performance"
+      }
+    ]
+  },
+  "portfolio": {
+    "tag": "Our Work",
+    "title": "Featured Projects",
+    "subtitle": "A selection of our latest projects that we are proud of"
+  },
+  "testimonials": {
+    "tag": "Testimonials",
+    "title": "What Our Clients Say"
+  },
+  "partners": {
+    "tag": "Trusted By",
+    "title": "Our Partners",
+    "subtitle": "We are proud to work with leading brands across various sectors"
+  },
+  "blog": {
+    "tag": "Blog",
+    "title": "Articles",
+    "viewAll": "View All",
+    "readMore": "Read More"
+  },
+  "cta": {
+    "title1": "Ready to Build",
+    "title2": "Your Brand?",
+    "description": "Contact us today on WhatsApp and let's turn your vision into a distinctive digital reality.",
+    "ctaWhatsapp": "Contact via WhatsApp",
+    "ctaWork": "View Work"
+  },
+  "footer": {
+    "tagline": "A digital agency specializing in building brands and premium digital experiences.",
+    "links": "Links",
+    "contact": "Contact",
+    "whatsapp": "WhatsApp",
+    "call": "Call",
+    "copyright": "All rights reserved"
+  },
+  "mobileMenu": {
+    "whatsapp": "Contact via WhatsApp"
+  },
+  "caseStudy": {
+    "back": "Back to Projects",
+    "client": "Client",
+    "industry": "Industry",
+    "duration": "Duration",
+    "year": "Year",
+    "website": "Website",
+    "behance": "Behance",
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "gallery": "Gallery",
+    "nextProject": "Next Project",
+    "videos": "Videos",
+    "links": "Project Links"
+  },
+  "header": {
+    "startProject": "Start Project"
+  },
+  "languages": {
+    "ar": "العربية",
+    "en": "English"
+  }
+}

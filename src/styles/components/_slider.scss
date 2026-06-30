@@ -1,0 +1,113 @@
+.portfolio__slider,
+.testimonials__slider,
+.blog__slider,
+.slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  direction: ltr;
+}
+
+.portfolio__nav,
+.testimonials__nav,
+.blog__nav,
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background var(--duration-normal) var(--ease-primary),
+              opacity var(--duration-normal) var(--ease-primary),
+              transform var(--duration-normal) var(--ease-primary);
+  opacity: 0.8;
+  outline: none;
+}
+
+.portfolio__nav:hover,
+.testimonials__nav:hover,
+.blog__nav:hover,
+.slider-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.portfolio__nav:focus-visible,
+.testimonials__nav:focus-visible,
+.blog__nav:focus-visible,
+.slider-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+.portfolio__nav:active,
+.testimonials__nav:active,
+.blog__nav:active,
+.slider-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.portfolio__nav--prev,
+.testimonials__nav--prev,
+.blog__nav--prev,
+.slider-btn--prev { left: 12px; }
+
+.portfolio__nav--next,
+.testimonials__nav--next,
+.blog__nav--next,
+.slider-btn--next { right: 12px; }
+
+.portfolio__track,
+.testimonials__track,
+.blog__track,
+.slider-track {
+  display: flex;
+  gap: var(--space-xl);
+  width: max-content;
+  will-change: transform;
+  touch-action: pan-y;
+  cursor: grab;
+  direction: ltr;
+}
+
+.portfolio-track--dragging {
+  cursor: grabbing;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@media (max-width: 640px) {
+  .portfolio__nav,
+  .testimonials__nav,
+  .blog__nav,
+  .slider-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .portfolio__nav--prev,
+  .testimonials__nav--prev,
+  .blog__nav--prev,
+  .slider-btn--prev { left: 6px; }
+
+  .portfolio__nav--next,
+  .testimonials__nav--next,
+  .blog__nav--next,
+  .slider-btn--next { right: 6px; }
+
+  .portfolio__nav svg,
+  .testimonials__nav svg,
+  .blog__nav svg,
+  .slider-btn svg { width: 16px; height: 16px; }
+}

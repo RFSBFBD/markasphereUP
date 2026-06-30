@@ -1,0 +1,40 @@
+.portfolio-card,
+.services__card,
+.testimonial-card,
+.blog-card,
+.partners__item {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-color var(--duration-normal) var(--ease-primary),
+              box-shadow var(--duration-normal) var(--ease-primary);
+}
+
+.portfolio-card:hover,
+.services__card:hover,
+.testimonial-card:hover,
+.blog-card:hover,
+.partners__item:hover,
+.partners__item:focus-visible {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.services__card-glow,
+.testimonial-card__accent,
+.blog-card__accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-accent);
+  opacity: 0;
+}
+
+.portfolio-card:hover .portfolio-card__title,
+.services__card:hover .services__card-title,
+.blog-card:hover .blog-card__title {
+  color: var(--color-accent);
+}

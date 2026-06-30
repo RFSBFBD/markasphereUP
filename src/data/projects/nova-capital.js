@@ -1,0 +1,31 @@
+export default {
+  id: 1,
+  slug: 'nova-capital',
+  titleAr: 'هوية نوفا كابيتال البصرية',
+  titleEn: 'Nova Capital Visual Identity',
+  category: 'visual-identity',
+  cover: 'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/nova-capital/cover.webp',
+  gradient: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+  gallery: [
+    'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/nova-capital/gallery-1.webp',
+    'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/nova-capital/gallery-2.webp',
+    'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/nova-capital/gallery-3.webp'
+  ],
+  descriptionAr: 'تصميم هوية بصرية متكاملة لشركة استثمارية رائدة تجمع بين الأناقة والاحترافية.',
+  descriptionEn: 'Complete visual identity design for a leading investment company combining elegance and professionalism.',
+  services: [],
+  year: '2025',
+  thumbnail: 'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/nova-capital/thumbnail.webp',
+  client: '',
+  industry: '',
+  duration: '',
+  website: '',
+  behance: '',
+  results: [],
+  process: [],
+  challengeAr: '',
+  challengeEn: '',
+  solutionAr: '',
+  solutionEn: '',
+  featured: true
+}

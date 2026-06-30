@@ -1,0 +1,100 @@
+[dir="rtl"] .testimonials .portfolio-card,
+[dir="rtl"] .testimonial-card {
+  direction: rtl;
+}
+
+[dir="ltr"] .testimonials .portfolio-card,
+[dir="ltr"] .testimonial-card {
+  direction: ltr;
+}
+
+.portfolio-card {
+  flex: 0 0 auto;
+  width: 400px;
+}
+
+.testimonial-card {
+  padding: var(--space-2xl);
+  position: relative;
+  will-change: transform;
+}
+
+.testimonial-card__quote-mark {
+  font-family: var(--font-en-h1);
+  font-size: 72px;
+  color: var(--color-accent);
+  opacity: 0.2;
+  line-height: 1;
+  margin-bottom: -16px;
+}
+
+.testimonial-card__quote {
+  font-family: var(--font-ar-body);
+  font-weight: 400;
+  font-size: var(--text-body-lg);
+  color: var(--color-text);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-2xl);
+  min-height: 100px;
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.testimonial-card__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  background: var(--gradient-accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-en-body);
+  font-size: var(--text-body);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.testimonial-card__info {
+  min-width: 0;
+}
+
+.testimonial-card__name {
+  font-family: var(--font-ar-h3);
+  font-weight: 600;
+  font-size: var(--text-body);
+  color: var(--color-text);
+  margin-bottom: 2px;
+}
+
+.testimonial-card__role {
+  font-family: var(--font-en-body);
+  font-weight: 400;
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+}
+
+.testimonial-card__stars {
+  display: flex;
+  gap: 2px;
+  color: #f59e0b;
+  margin-top: var(--space-md);
+}
+
+@media (max-width: 1024px) {
+  .portfolio-card { width: 340px; }
+}
+
+@media (max-width: 640px) {
+  .portfolio-card { width: 280px; }
+  .testimonial-card { padding: var(--space-xl); }
+}

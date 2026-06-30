@@ -1,0 +1,31 @@
+export default {
+  id: 12,
+  slug: 'momentum',
+  titleAr: 'حملة مومنتوم للإطلاق',
+  titleEn: 'Momentum Launch Campaign',
+  category: 'marketing',
+  cover: 'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/momentum/cover.webp',
+  gradient: 'linear-gradient(135deg, #141414 0%, #2b2b2b 50%, #3d3d3d 100%)',
+  gallery: [
+    'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/momentum/gallery-1.webp',
+    'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/momentum/gallery-2.webp',
+    'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/momentum/gallery-3.webp'
+  ],
+  descriptionAr: 'حملة إطلاق منتجات جديدة مع استراتيجية تسويقية متعددة القنوات.',
+  descriptionEn: 'New product launch campaign with multi-channel marketing strategy.',
+  services: [],
+  year: '2025',
+  thumbnail: 'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/momentum/thumbnail.webp',
+  client: '',
+  industry: '',
+  duration: '',
+  website: '',
+  behance: '',
+  results: [],
+  process: [],
+  challengeAr: '',
+  challengeEn: '',
+  solutionAr: '',
+  solutionEn: '',
+  featured: true
+}

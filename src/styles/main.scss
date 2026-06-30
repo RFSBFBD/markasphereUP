@@ -1,0 +1,99 @@
+@use './tokens/colors';
+@use './tokens/typography';
+@use './tokens/spacing';
+@use './tokens/motion';
+
+@use './components/slider';
+@use './components/section-header';
+@use './components/cards';
+
+@use './base/reset';
+@use './base/fonts';
+@use './base/globals';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.section {
+  position: relative;
+  padding-block: var(--space-5xl);
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding-block: var(--space-4xl);
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-block: var(--space-3xl);
+  }
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  z-index: 9999;
+}
+
+@media (max-width: 1024px) {
+  .custom-cursor {
+    display: none !important;
+  }
+
+  a, button {
+    cursor: pointer;
+  }
+
+  body {
+    cursor: auto;
+  }
+}
+
+::selection {
+  background: var(--color-accent-glow);
+  color: var(--color-text);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}

@@ -1,0 +1,145 @@
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* =========================
+   Base Typography
+   ========================= */
+
+body {
+  font-family: var(--font-ar-body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================
+   Touch Target Minimum
+   ========================= */
+
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* =========================
+   Container
+   ========================= */
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding-inline: var(--container-padding);
+}
+
+/* =========================
+   Button Base System
+   ========================= */
+
+/* =========================
+   Glass Effect
+   ========================= */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-none);
+}
+
+/* =========================
+   Focus States
+   ========================= */
+
+a:focus-visible,
+button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* =========================
+   Hover Media Query
+   ========================= */
+
+@media (hover: none) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* =========================
+   Reduced Motion
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================
+   Responsive Typography Scale
+   ========================= */
+
+@media (max-width: 640px) {
+  :root {
+    --text-display-xl: 36px;
+    --text-display-lg: 32px;
+    --text-display-md: 28px;
+
+    --text-h1: 26px;
+    --text-h2: 22px;
+    --text-h3: 20px;
+    --text-h4: 17px;
+    --text-h5: 15px;
+
+    --text-body-lg: 16px;
+    --text-body: 15px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root {
+    --text-display-xl: 52px;
+    --text-display-lg: 44px;
+    --text-display-md: 38px;
+
+    --text-h1: 36px;
+    --text-h2: 30px;
+    --text-h3: 24px;
+    --text-h4: 20px;
+    --text-h5: 17px;
+  }
+}

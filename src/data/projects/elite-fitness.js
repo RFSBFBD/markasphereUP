@@ -1,0 +1,31 @@
+export default {
+  id: 8,
+  slug: 'elite-fitness',
+  titleAr: 'موقع إيليت فيتنس',
+  titleEn: 'Elite Fitness Website',
+  category: 'websites',
+  cover: 'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/elite-fitness/cover.webp',
+  gradient: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2d2d2d 100%)',
+  gallery: [
+    'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/elite-fitness/gallery-1.webp',
+    'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/elite-fitness/gallery-2.webp',
+    'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/elite-fitness/gallery-3.webp'
+  ],
+  descriptionAr: 'موقع تفاعلي لنادي رياضي فاخر مع نظام اشتراكات وحجز تدريبات.',
+  descriptionEn: 'Interactive website for a luxury gym with subscription and training booking system.',
+  services: [],
+  year: '2025',
+  thumbnail: 'https://res.cloudinary.com/markasphere/image/upload/v1/portfolio/elite-fitness/thumbnail.webp',
+  client: '',
+  industry: '',
+  duration: '',
+  website: '',
+  behance: '',
+  results: [],
+  process: [],
+  challengeAr: '',
+  challengeEn: '',
+  solutionAr: '',
+  solutionEn: '',
+  featured: true
+}
