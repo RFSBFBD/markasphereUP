@@ -2,8 +2,8 @@ import { DEVICE } from '@/composables/animations/motion.config'
 
 export const SLIDER_SPEED = {
   portfolio: { desktop: 17, tablet: 14, mobile: 10 },
-  testimonials: { desktop: 15, tablet: 13, mobile: 10 },
-  partners: { desktop: 15, tablet: 13, mobile: 10 },
+  testimonials: { desktop: 13, tablet: 11, mobile: 8 },
+  partners: { desktop: 8, tablet: 6, mobile: 4 },
   blog: { desktop: 15, tablet: 13, mobile: 10 }
 }
 

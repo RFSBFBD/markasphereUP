@@ -15,6 +15,7 @@
     "description": "We craft high-end digital experiences that elevate brands and drive measurable growth.",
     "ctaWhatsapp": "Contact via WhatsApp",
     "ctaWork": "View Work",
+    "scroll": "Scroll",
     "clients": "Our Clients",
     "clientsCount": "+80"
   },
@@ -108,22 +109,66 @@
   "portfolio": {
     "tag": "Our Work",
     "title": "Featured Projects",
-    "subtitle": "A selection of our latest projects that we are proud of"
+    "subtitle": "A selection of our latest projects that we are proud of",
+    "empty": "No projects to show yet",
+    "search": "Search projects...",
+    "loadMore": "Load More"
+  },
+  "pageHero": {
+    "about": {
+      "tag": "About Us",
+      "title": "About Us",
+      "desc": "A team of creators and engineers passionate about building exceptional digital experiences"
+    },
+    "services": {
+      "tag": "Services",
+      "title": "Our Services",
+      "desc": "Integrated digital solutions that combine creativity and strategy"
+    },
+    "portfolio": {
+      "tag": "Portfolio",
+      "title": "Portfolio",
+      "desc": "A complete showcase of our latest projects across various industries"
+    },
+    "blog": {
+      "tag": "Blog",
+      "title": "Articles",
+      "desc": "Insights and articles on design, development and digital marketing"
+    },
+    "contact": {
+      "tag": "Contact",
+      "title": "Contact Us",
+      "desc": "We are here to help. Get in touch and let's turn your idea into reality."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Failed to load data, please try again later"
   },
   "testimonials": {
     "tag": "Testimonials",
-    "title": "What Our Clients Say"
+    "title": "What Our Clients Say",
+    "empty": "No testimonials to show yet"
+  },
+  "team": {
+    "tag": "Our Team",
+    "title": "The Experts Behind The Work",
+    "empty": "No team members to show yet"
   },
   "partners": {
     "tag": "Trusted By",
     "title": "Our Partners",
-    "subtitle": "We are proud to work with leading brands across various sectors"
+    "subtitle": "We are proud to work with leading brands across various sectors",
+    "empty": "No partners to show yet"
   },
   "blog": {
     "tag": "Blog",
     "title": "Articles",
     "viewAll": "View All",
-    "readMore": "Read More"
+    "readMore": "Read More",
+    "empty": "No articles to show yet",
+    "search": "Search articles...",
+    "back": "Back to blog"
   },
   "cta": {
     "title1": "Ready to Build",
@@ -138,10 +183,34 @@
     "contact": "Contact",
     "whatsapp": "WhatsApp",
     "call": "Call",
-    "copyright": "All rights reserved"
+    "rights": "All rights reserved",
+    "email": "Email",
+    "address": "Address",
+    "workingHours": "Working Hours",
+    "map": "Find us on the map",
+    "social": "Follow Us"
   },
   "mobileMenu": {
     "whatsapp": "Contact via WhatsApp"
+  },
+  "contact": {
+    "infoTitle": "Contact Information",
+    "email": "Email",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "address": "Address",
+    "workingHours": "Working Hours",
+    "social": "Follow Us",
+    "map": "Find us on the map",
+    "company": "Company",
+    "subject": "Subject",
+    "message": "Message",
+    "name": "Name",
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "success": "Your message has been sent successfully! We will contact you soon.",
+    "errorRequired": "Please fill in all required fields",
+    "errorGeneric": "Something went wrong, please try again"
   },
   "caseStudy": {
     "back": "Back to Projects",

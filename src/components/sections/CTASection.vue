@@ -51,14 +51,14 @@ import { MOTION } from '@/composables/animations/motion.config'
 import gsap from 'gsap'
 import '@/styles/sections/cta.css'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const { headerReveal } = useScrollReveal()
 const { stagger } = useStagger()
 const { buttonHover } = useHoverSystem()
 const { parallaxBg } = useParallaxSystem()
 const { buildLink } = useWhatsApp()
 
-const whatsappLink = buildLink()
+const whatsappLink = buildLink('', locale.value)
 
 const ctaRef = ref(null)
 const headerGroup = ref(null)

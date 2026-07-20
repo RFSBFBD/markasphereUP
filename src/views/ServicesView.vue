@@ -2,10 +2,10 @@
   <div class="services-page">
     <section class="page-hero">
       <div class="container">
-        <p class="page-hero__tag">Services</p>
-        <h1 class="page-hero__title">خدماتنا</h1>
+        <p class="page-hero__tag">{{ t('pageHero.services.tag') }}</p>
+        <h1 class="page-hero__title">{{ t('pageHero.services.title') }}</h1>
         <p class="page-hero__desc">
-          حلول رقمية متكاملة تجمع بين الإبداع والاستراتيجية
+          {{ t('pageHero.services.desc') }}
         </p>
       </div>
     </section>
@@ -16,8 +16,11 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
 import ServicesSection from '@/components/sections/ServicesSection.vue'
 import Section4 from '@/components/sections/Section4.vue'
+
+const { t } = useI18n()
 </script>
 
 <style scoped>

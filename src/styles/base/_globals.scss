@@ -110,6 +110,34 @@ button:focus-visible {
 }
 
 /* =========================
+   RTL Eyebrow / Tag Labels
+   In Arabic the small uppercase "eyebrow" labels are localized
+   Arabic strings, so they must use the Arabic font and not be
+   uppercased (uppercase has no effect on Arabic and the EN font
+   renders Arabic poorly).
+   ========================= */
+
+[dir="rtl"] .page-hero__tag,
+[dir="rtl"] .section2__tag,
+[dir="rtl"] .section4__tag,
+[dir="rtl"] .section6__tag,
+[dir="rtl"] .services__tag,
+[dir="rtl"] .portfolio__tag,
+[dir="rtl"] .partners__tag,
+[dir="rtl"] .team__tag,
+[dir="rtl"] .blog__tag,
+[dir="rtl"] .cta__tag,
+[dir="rtl"] .hero__tag,
+[dir="rtl"] .pcs__hero-category,
+[dir="rtl"] .pcs__back,
+[dir="rtl"] .pcs__nav-link,
+[dir="rtl"] .pcs__info-label {
+  font-family: var(--font-ar-body);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* =========================
    Responsive Typography Scale
    ========================= */
 

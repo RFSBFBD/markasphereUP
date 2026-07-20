@@ -1,0 +1,342 @@
+// ============================================
+// DASHBOARD — Component Styles
+// ============================================
+
+@use '../mixins/d-mixins' as *;
+
+// ── Card ──
+.d-card {
+  @include d-card;
+  padding: var(--d-space-5);
+  transition: var(--d-transition-shadow);
+  &:hover { box-shadow: var(--d-shadow-sm); }
+}
+
+// ── Stat Card ──
+.d-stat {
+  @include d-card;
+  padding: var(--d-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--d-space-2);
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--d-radius-md);
+    @include d-flex-center;
+    font-size: var(--d-text-lg);
+  }
+
+  &__value {
+    font: 600 var(--d-text-2xl) / var(--d-lh-tight) var(--d-font-sans);
+    color: var(--d-text);
+  }
+
+  &__label {
+    font: var(--d-body-sm);
+    color: var(--d-text-muted);
+  }
+
+  &__trend {
+    font: 500 var(--d-text-sm) / 1 var(--d-font-sans);
+    &--up { color: var(--d-success); }
+    &--down { color: var(--d-danger); }
+  }
+}
+
+// ── Panel ──
+.d-panel {
+  @include d-card;
+  &__header {
+    @include d-flex-between;
+    padding: var(--d-space-4) var(--d-space-5);
+    border-bottom: var(--d-border-width) solid var(--d-border-light);
+  }
+  &__title {
+    font: var(--d-h4);
+  }
+  &__body {
+    padding: var(--d-space-5);
+  }
+  &__footer {
+    @include d-flex-between;
+    padding: var(--d-space-4) var(--d-space-5);
+    border-top: var(--d-border-width) solid var(--d-border-light);
+  }
+}
+
+// ── Tabs ──
+.d-tabs {
+  display: flex;
+  gap: var(--d-space-1);
+  border-bottom: var(--d-border-width) solid var(--d-border);
+  padding: 0 var(--d-space-1);
+
+  &__item {
+    padding: var(--d-space-2) var(--d-space-4);
+    font: 500 var(--d-text-base) / 1 var(--d-font-sans);
+    color: var(--d-text-muted);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: var(--d-transition-colors);
+    margin-bottom: -1px;
+
+    &:hover { color: var(--d-text); }
+    &--active {
+      color: var(--d-brand-primary);
+      border-bottom-color: var(--d-brand-primary);
+    }
+  }
+}
+
+// ── Dropdown ──
+.d-dropdown {
+  position: relative;
+  display: inline-block;
+
+  &__menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: var(--d-space-1);
+    min-width: 180px;
+    @include d-card;
+    padding: var(--d-space-1);
+    z-index: 200;
+    box-shadow: var(--d-shadow-lg);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: var(--d-space-2);
+    width: 100%;
+    padding: var(--d-space-2) var(--d-space-3);
+    font: var(--d-body);
+    color: var(--d-text-secondary);
+    border: none;
+    background: none;
+    border-radius: var(--d-radius-sm);
+    cursor: pointer;
+    text-align: start;
+
+    &:hover { background: var(--d-surface-hover); color: var(--d-text); }
+    &--danger { color: var(--d-danger); &:hover { background: var(--d-danger-light); } }
+  }
+
+  &__divider {
+    height: 1px;
+    background: var(--d-border-light);
+    margin: var(--d-space-1) 0;
+  }
+}
+
+// ── Badge ──
+.d-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--d-space-0\.5) var(--d-space-2);
+  font: 500 var(--d-text-xs) / 1 var(--d-font-sans);
+  border-radius: var(--d-radius-full);
+
+  &--primary { background: var(--d-brand-primary-light); color: var(--d-brand-primary); }
+  &--success { background: var(--d-success-light); color: var(--d-success-text); }
+  &--danger { background: var(--d-danger-light); color: var(--d-danger-text); }
+  &--warning { background: var(--d-warning-light); color: var(--d-warning-text); }
+  &--info { background: var(--d-info-light); color: var(--d-info-text); }
+  &--muted { background: var(--d-surface-active); color: var(--d-text-muted); }
+}
+
+// ── Avatar ──
+.d-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--d-radius-full);
+  font: 600 var(--d-text-sm) / 1 var(--d-font-sans);
+  color: var(--d-text-inverse);
+  background: var(--d-brand-gradient);
+  flex-shrink: 0;
+
+  &--sm { width: 28px; height: 28px; font-size: var(--d-text-xs); }
+  &--md { width: 36px; height: 36px; font-size: var(--d-text-sm); }
+  &--lg { width: 44px; height: 44px; font-size: var(--d-text-base); }
+  &--xl { width: 56px; height: 56px; font-size: var(--d-text-lg); }
+}
+
+// ── Chip ──
+.d-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--d-space-1);
+  padding: var(--d-space-1) var(--d-space-3);
+  background: var(--d-surface-active);
+  border-radius: var(--d-radius-full);
+  font: 500 var(--d-text-sm) / 1 var(--d-font-sans);
+  color: var(--d-text-secondary);
+
+  &__close {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: none;
+    background: none;
+    color: var(--d-text-muted);
+    cursor: pointer;
+    @include d-flex-center;
+    font-size: 10px;
+    &:hover { background: var(--d-border); color: var(--d-text); }
+  }
+}
+
+// ── Divider ──
+.d-divider {
+  height: 1px;
+  background: var(--d-border);
+  border: none;
+  margin: var(--d-space-4) 0;
+
+  &--vertical {
+    width: 1px;
+    height: auto;
+    align-self: stretch;
+    margin: 0 var(--d-space-3);
+  }
+}
+
+// ── Tooltip ──
+.d-tooltip {
+  position: relative;
+  &__content {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--d-space-1) var(--d-space-2);
+    background: var(--d-text);
+    color: var(--d-text-inverse);
+    font: var(--d-body-sm);
+    border-radius: var(--d-radius-sm);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--d-duration-fast) var(--d-ease-default);
+    margin-bottom: var(--d-space-1);
+    z-index: 300;
+  }
+  &:hover &__content { opacity: 1; }
+}
+
+// ── Progress ──
+.d-progress {
+  height: 6px;
+  background: var(--d-surface-active);
+  border-radius: var(--d-radius-full);
+  overflow: hidden;
+
+  &__bar {
+    height: 100%;
+    background: var(--d-brand-gradient);
+    border-radius: var(--d-radius-full);
+    transition: width var(--d-duration-slow) var(--d-ease-default);
+  }
+
+  &--sm { height: 4px; }
+  &--lg { height: 10px; }
+}
+
+// ── Spinner ──
+.d-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--d-border);
+  border-top-color: var(--d-brand-primary);
+  border-radius: 50%;
+  animation: d-spin 0.6s linear infinite;
+
+  &--sm { width: 14px; height: 14px; border-width: 1.5px; }
+  &--lg { width: 32px; height: 32px; border-width: 3px; }
+
+  &--white {
+    border-color: rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+  }
+}
+
+@keyframes d-spin {
+  to { transform: rotate(360deg); }
+}
+
+// ── Skeleton ──
+.d-skeleton {
+  background: linear-gradient(90deg, var(--d-surface-active) 25%, var(--d-surface-hover) 50%, var(--d-surface-active) 75%);
+  background-size: 200% 100%;
+  animation: d-shimmer 1.5s infinite;
+  border-radius: var(--d-radius-md);
+
+  &--text { height: 14px; width: 100%; }
+  &--title { height: 20px; width: 60%; }
+  &--avatar { width: 40px; height: 40px; border-radius: var(--d-radius-full); }
+  &--card { height: 120px; width: 100%; }
+  &--btn { height: 36px; width: 100px; border-radius: var(--d-radius-md); }
+}
+
+@keyframes d-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// ── Popover ──
+.d-popover {
+  position: absolute;
+  @include d-card;
+  padding: var(--d-space-4);
+  box-shadow: var(--d-shadow-lg);
+  z-index: 250;
+  min-width: 200px;
+}
+
+// ── Accordion ──
+.d-accordion {
+  @include d-card;
+  overflow: hidden;
+
+  &__item {
+    border-bottom: var(--d-border-width) solid var(--d-border-light);
+    &:last-child { border-bottom: none; }
+  }
+
+  &__trigger {
+    width: 100%;
+    @include d-flex-between;
+    padding: var(--d-space-4) var(--d-space-5);
+    border: none;
+    background: none;
+    font: 500 var(--d-text-base) / 1 var(--d-font-sans);
+    color: var(--d-text);
+    cursor: pointer;
+    transition: var(--d-transition-colors);
+
+    &:hover { background: var(--d-surface-hover); }
+
+    &__icon {
+      transition: transform var(--d-duration-normal) var(--d-ease-default);
+      &--open { transform: rotate(180deg); }
+    }
+  }
+
+  &__content {
+    padding: 0 var(--d-space-5) var(--d-space-4);
+    font: var(--d-body);
+    color: var(--d-text-secondary);
+  }
+}
+
+// ── Widget ──
+.d-widget {
+  @include d-card;
+  padding: var(--d-space-5);
+}

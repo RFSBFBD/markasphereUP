@@ -1,0 +1,61 @@
+// ============================================
+// DASHBOARD DESIGN TOKENS — Colors
+// ============================================
+
+:root {
+  // ── Brand ──
+  --d-brand-primary: #667eea;
+  --d-brand-primary-hover: #5a67d8;
+  --d-brand-primary-light: #eef2ff;
+  --d-brand-primary-muted: rgba(102, 126, 234, 0.12);
+  --d-brand-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  // ── Surface ──
+  --d-surface: #ffffff;
+  --d-surface-hover: #f9fafb;
+  --d-surface-active: #f3f4f6;
+  --d-surface-raised: #ffffff;
+  --d-surface-sunken: #f5f6f8;
+  --d-surface-overlay: rgba(0, 0, 0, 0.5);
+
+  // ── Sidebar ──
+  --d-sidebar-bg: #1a1a2e;
+  --d-sidebar-hover: rgba(255, 255, 255, 0.08);
+  --d-sidebar-active: rgba(102, 126, 234, 0.2);
+  --d-sidebar-text: rgba(255, 255, 255, 0.65);
+  --d-sidebar-text-active: #667eea;
+  --d-sidebar-width: 250px;
+  --d-sidebar-collapsed-width: 60px;
+
+  // ── Text ──
+  --d-text: #1f2937;
+  --d-text-secondary: #374151;
+  --d-text-muted: #6b7280;
+  --d-text-faint: #9ca3af;
+  --d-text-inverse: #ffffff;
+  --d-text-link: #667eea;
+  --d-text-link-hover: #5a67d8;
+
+  // ── Border ──
+  --d-border: #e5e7eb;
+  --d-border-light: #f3f4f6;
+  --d-border-focus: #667eea;
+
+  // ── Status ──
+  --d-success: #10b981;
+  --d-success-light: #d1fae5;
+  --d-success-text: #065f46;
+  --d-danger: #ef4444;
+  --d-danger-light: #fee2e2;
+  --d-danger-text: #991b1b;
+  --d-warning: #f59e0b;
+  --d-warning-light: #fef3c7;
+  --d-warning-text: #92400e;
+  --d-info: #3b82f6;
+  --d-info-light: #dbeafe;
+  --d-info-text: #1e40af;
+
+  // ── Interactive ──
+  --d-focus-ring: 0 0 0 3px rgba(102, 126, 234, 0.3);
+  --d-disabled-opacity: 0.5;
+}

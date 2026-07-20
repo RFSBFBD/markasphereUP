@@ -14,7 +14,12 @@
         </router-link>
       </div>
 
-      <div class="blog__slider" ref="sliderRef">
+      <div v-if="loading" class="blog__state">{{ t('common.loading') }}</div>
+      <div v-else-if="error" class="blog__state blog__state--error">{{ t('common.error') }}</div>
+
+      <div v-else-if="!articles.length" class="blog__state">{{ t('blog.empty') }}</div>
+
+      <div v-else class="blog__slider" ref="sliderRef">
         <button
           class="blog__nav blog__nav--prev"
           @click="slidePrev"
@@ -64,11 +69,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BaseSection from '@/components/base/BaseSection.vue'
 import BlogCard from '@/components/blog/BlogCard.vue'
-import { articles } from '@/data/articles'
+import { blogService } from '@/services/BlogService'
 import { useScrollReveal } from '@/composables/animations/useMotionSystem'
 import { createSlider } from '@/composables/services/PortfolioSlider'
 import { getSliderSpeed } from '@/composables/services/slider.config'
@@ -86,16 +91,47 @@ const headerRef = ref(null)
 const sliderRef = ref(null)
 const trackRef = ref(null)
 
-onMounted(() => {
-  headerReveal(headerRef.value)
+const articles = ref([])
+const loading = ref(true)
+const error = ref(false)
+
+function startSlider() {
+  if (!trackRef.value) return
   slider.init(trackRef.value, sliderRef.value, getSliderSpeed('blog'), (clone) => {
     cardHover(clone)
   })
+}
+
+async function loadArticles() {
+  loading.value = true
+  error.value = false
+  try {
+    const data = await blogService.getAll({ limit: 50, published: true })
+    articles.value = data || []
+  } catch (e) {
+    error.value = true
+    if (import.meta.env.DEV) console.error('[BlogPreview] load failed', e)
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  headerReveal(headerRef.value)
+  startSlider()
+})
+
+watch(articles, async (list) => {
+  if (!list.length) return
+  await nextTick()
+  startSlider()
 })
 
 onUnmounted(() => {
   slider.destroy()
 })
+
+loadArticles()
 </script>
 
 <style scoped>
@@ -173,4 +209,14 @@ onUnmounted(() => {
   .blog__header { flex-direction: column; align-items: flex-start; gap: var(--space-md); }
   .blog__title { font-size: var(--text-h2); }
 }
+
+.blog__state {
+  text-align: center;
+  font-family: var(--font-ar-body);
+  font-size: var(--text-body-lg);
+  color: var(--color-text-muted);
+  padding: var(--space-3xl) 0;
+}
+
+.blog__state--error { color: var(--color-accent); }
 </style>

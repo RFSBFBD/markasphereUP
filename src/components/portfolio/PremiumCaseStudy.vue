@@ -252,7 +252,7 @@ import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import { MOTION, reducedMotion, isMobile, mobileScale } from '@/composables/animations/motion.config'
 import { optimizeUrl, srcset, blurUrl } from '@/composables/services/image'
-import { getCategoryById } from '@/data/portfolio'
+import { getCategoryLabel } from '@/constants/categories'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -287,11 +287,9 @@ const navRef = ref(null)
 const scrollTopRef = ref(null)
 const showScrollTop = ref(false)
 
-const categoryLabel = computed(() => {
-  const cat = getCategoryById(props.project.category)
-  if (!cat) return props.project.category
-  return props.locale === 'ar' ? cat.label : cat.labelEn
-})
+const categoryLabel = computed(() =>
+  getCategoryLabel(props.project.category, props.locale)
+)
 
 const localizedTitle = computed(() =>
   props.locale === 'ar' ? props.project.titleAr : props.project.titleEn

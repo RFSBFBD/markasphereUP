@@ -1,0 +1,105 @@
+// ============================================
+// DASHBOARD BASE STYLES
+// ============================================
+
+@use '../mixins/d-mixins' as *;
+
+// ── Root Reset for Dashboard ──
+.d-root {
+  font: var(--d-body);
+  color: var(--d-text);
+  background: var(--d-surface-sunken);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ── Typography Utilities ──
+.d-h1 { font: var(--d-h1); letter-spacing: var(--d-ls-tight); }
+.d-h2 { font: var(--d-h2); letter-spacing: var(--d-ls-tight); }
+.d-h3 { font: var(--d-h3); }
+.d-h4 { font: var(--d-h4); }
+.d-body { font: var(--d-body); }
+.d-body-sm { font: var(--d-body-sm); }
+.d-caption { font: var(--d-caption); }
+.d-label { font: var(--d-label); }
+
+.d-text-primary { color: var(--d-text); }
+.d-text-secondary { color: var(--d-text-secondary); }
+.d-text-muted { color: var(--d-text-muted); }
+.d-text-faint { color: var(--d-text-faint); }
+.d-text-link { color: var(--d-text-link); &:hover { color: var(--d-text-link-hover); } }
+.d-text-success { color: var(--d-success); }
+.d-text-danger { color: var(--d-danger); }
+.d-text-warning { color: var(--d-warning); }
+.d-text-info { color: var(--d-info); }
+
+.d-font-medium { font-weight: var(--d-weight-medium); }
+.d-font-semibold { font-weight: var(--d-weight-semibold); }
+.d-font-bold { font-weight: var(--d-weight-bold); }
+
+// ── Spacing Utilities ──
+@each $size in 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20 {
+  .d-mt-#{$size} { margin-top: var(--d-space-#{$size}); }
+  .d-mb-#{$size} { margin-bottom: var(--d-space-#{$size}); }
+  .d-ml-#{$size} { margin-left: var(--d-space-#{$size}); }
+  .d-mr-#{$size} { margin-right: var(--d-space-#{$size}); }
+  .d-pt-#{$size} { padding-top: var(--d-space-#{$size}); }
+  .d-pb-#{$size} { padding-bottom: var(--d-space-#{$size}); }
+  .d-pl-#{$size} { padding-left: var(--d-space-#{$size}); }
+  .d-pr-#{$size} { padding-right: var(--d-space-#{$size}); }
+  .d-p-#{$size} { padding: var(--d-space-#{$size}); }
+}
+
+// ── Display ──
+.d-flex { display: flex; }
+.d-flex-center { @include d-flex-center; }
+.d-flex-between { @include d-flex-between; }
+.d-flex-col { @include d-flex-col; }
+.d-grid { display: grid; }
+.d-block { display: block; }
+.d-hidden { display: none; }
+
+// ── Alignment ──
+.d-items-center { align-items: center; }
+.d-items-start { align-items: flex-start; }
+.d-items-end { align-items: flex-end; }
+.d-justify-center { justify-content: center; }
+.d-justify-between { justify-content: space-between; }
+.d-justify-end { justify-content: flex-end; }
+.d-flex-1 { flex: 1; }
+.d-shrink-0 { flex-shrink: 0; }
+
+// ── Gap ──
+@each $size in 1, 2, 3, 4, 5, 6, 8 {
+  .d-gap-#{$size} { gap: var(--d-space-#{$size}); }
+}
+
+// ── Width ──
+.d-w-full { width: 100%; }
+
+// ── Overflow ──
+.d-overflow-hidden { overflow: hidden; }
+.d-overflow-auto { overflow: auto; @include d-scrollbar; }
+
+// ── Position ──
+.d-relative { position: relative; }
+.d-sticky { position: sticky; }
+
+// ── Border ──
+.d-border-b { border-bottom: var(--d-border-width) solid var(--d-border); }
+.d-border-t { border-top: var(--d-border-width) solid var(--d-border); }
+
+// ── Radius ──
+.d-rounded { border-radius: var(--d-radius-md); }
+.d-rounded-lg { border-radius: var(--d-radius-lg); }
+.d-rounded-full { border-radius: var(--d-radius-full); }
+
+// ── Truncate ──
+.d-truncate { @include d-truncate; }
+
+// ── Selection ──
+.d-select-none { user-select: none; }
+
+// ── Transitions ──
+.d-transition { transition: var(--d-transition-all); }
+.d-transition-colors { transition: var(--d-transition-colors); }

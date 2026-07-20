@@ -1,0 +1,1 @@
+export { supabaseConfig } from './supabase'

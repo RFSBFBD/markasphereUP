@@ -13,10 +13,12 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
 import { useWhatsApp } from '@/composables/services/useWhatsApp'
 
+const { locale } = useI18n()
 const { buildLink } = useWhatsApp()
-const link = buildLink()
+const link = buildLink('', locale.value)
 </script>
 
 <style scoped>

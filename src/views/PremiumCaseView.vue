@@ -14,7 +14,7 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { getProjectBySlug, getAllProjects } from '@/data/projects/loader'
+import { projectsPublicService } from '@/data/portfolio/projects/publicService'
 import { optimizeUrl } from '@/composables/services/image'
 import PremiumCaseStudy from '@/components/portfolio/PremiumCaseStudy.vue'
 
@@ -41,7 +41,7 @@ async function loadProject(slug) {
     preloadLink = null
   }
 
-  const p = await getProjectBySlug(slug)
+  const p = await projectsPublicService.getBySlug(slug)
   if (!p) {
     router.replace({ name: 'not-found' })
     return
@@ -56,14 +56,9 @@ async function loadProject(slug) {
   preloadLink.as = 'image'
   document.head.appendChild(preloadLink)
 
-  const all = await getAllProjects()
-  const idx = all.findIndex(x => x.slug === p.slug)
-  if (idx !== -1) {
-    const prevIdx = (idx - 1 + all.length) % all.length
-    const nextIdx = (idx + 1) % all.length
-    prevProject.value = all[prevIdx]
-    nextProject.value = all[nextIdx]
-  }
+  const { prev, next } = await projectsPublicService.getAdjacent(slug)
+  prevProject.value = prev
+  nextProject.value = next
 }
 
 watch(() => route.params.slug, loadProject, { immediate: true })

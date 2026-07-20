@@ -21,12 +21,11 @@ export function useHeader() {
     headerRef.value = el
     if (!el || reducedMotion()) return
     gsap.from(el, {
-      y: -24,
       opacity: 0,
-      duration: MOTION.card,
-      delay: 0.2,
-      ease: MOTION.ease.strong,
-      clearProps: 'transform'
+      duration: MOTION.fast,
+      delay: 0.1,
+      ease: MOTION.ease.primary,
+      clearProps: 'opacity'
     })
   }
 

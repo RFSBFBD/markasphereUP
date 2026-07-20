@@ -13,7 +13,7 @@ const { buttonHover } = useHoverSystem()
 const { buildLink } = useWhatsApp()
 const { entrance, isScrolled } = useHeader()
 
-const whatsappLink = buildLink()
+const whatsappLink = buildLink('', locale.value)
 
 const isMobileOpen = ref(false)
 const logoText = ref(null)
@@ -81,7 +81,7 @@ onMounted(() => {
 
       <div class="header__actions">
         <button class="header__lang" @click="toggleLocale" :aria-label="locale === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'">
-          {{ locale === 'ar' ? 'EN' : 'عربي' }}
+          {{ locale === 'ar' ? 'EN' : 'ع' }}
         </button>
         <a :href="whatsappLink" target="_blank" rel="noopener" class="header__cta" ref="ctaBtn">
           {{ t('header.startProject') }}

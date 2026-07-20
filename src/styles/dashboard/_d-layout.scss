@@ -1,0 +1,263 @@
+// ============================================
+// DASHBOARD — Layout Styles
+// ============================================
+
+@use '../mixins/d-mixins' as *;
+
+// ── Dashboard Shell ──
+.d-layout {
+  display: flex;
+  min-height: 100vh;
+  direction: rtl;
+}
+
+// ── Sidebar ──
+.d-sidebar {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  width: var(--d-sidebar-width);
+  height: 100vh;
+  background: var(--d-sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: width var(--d-duration-slow) var(--d-ease-default);
+  overflow: hidden;
+
+  &--collapsed {
+    width: var(--d-sidebar-collapsed-width);
+  }
+
+  &__brand {
+    height: 64px;
+    @include d-flex-center;
+    padding: 0 var(--d-space-4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+  }
+
+  &__brand-text {
+    font: 600 var(--d-text-lg) / 1 var(--d-font-sans);
+    background: var(--d-brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+  }
+
+  &__nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--d-space-3) var(--d-space-2);
+    @include d-scrollbar(4px);
+  }
+
+  &__group {
+    margin-bottom: var(--d-space-4);
+
+    &-label {
+      padding: var(--d-space-1) var(--d-space-3);
+      font: 500 var(--d-text-xs) / 1 var(--d-font-sans);
+      color: var(--d-sidebar-text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      opacity: 0.6;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: var(--d-space-3);
+    padding: var(--d-space-2) var(--d-space-3);
+    border-radius: var(--d-radius-md);
+    font: 500 var(--d-text-base) / 1 var(--d-font-sans);
+    color: var(--d-sidebar-text);
+    text-decoration: none;
+    transition: var(--d-transition-colors);
+    white-space: nowrap;
+
+    &:hover {
+      background: var(--d-sidebar-hover);
+      color: var(--d-text-inverse);
+    }
+
+    &--active {
+      background: var(--d-sidebar-active);
+      color: var(--d-sidebar-text-active);
+
+      &:hover {
+        background: var(--d-sidebar-active);
+        color: var(--d-sidebar-text-active);
+      }
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    @include d-flex-center;
+    font-size: var(--d-text-md);
+  }
+
+  &__text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__footer {
+    padding: var(--d-space-3) var(--d-space-4);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+  }
+}
+
+// ── Main Area ──
+.d-main {
+  flex: 1;
+  margin-inline-end: var(--d-sidebar-width);
+  min-height: 100vh;
+  transition: margin-inline-end var(--d-duration-slow) var(--d-ease-default);
+
+  .d-sidebar--collapsed ~ & {
+    margin-inline-end: var(--d-sidebar-collapsed-width);
+  }
+}
+
+// ── Topbar ──
+.d-topbar {
+  position: sticky;
+  top: 0;
+  height: 64px;
+  @include d-flex-between;
+  padding: 0 var(--d-space-6);
+  background: var(--d-surface);
+  border-bottom: var(--d-border-width) solid var(--d-border);
+  z-index: 50;
+  @include d-glass;
+
+  &__left,
+  &__right {
+    @include d-flex-center;
+    gap: var(--d-space-3);
+  }
+
+  &__title {
+    font: var(--d-h3);
+  }
+
+  &__toggle {
+    width: 36px;
+    height: 36px;
+    @include d-flex-center;
+    border: var(--d-border-width) solid var(--d-border);
+    border-radius: var(--d-radius-md);
+    background: var(--d-surface);
+    color: var(--d-text-secondary);
+    cursor: pointer;
+    transition: var(--d-transition-colors);
+
+    &:hover {
+      background: var(--d-surface-hover);
+      color: var(--d-text);
+    }
+  }
+}
+
+// ── Breadcrumb ──
+.d-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--d-space-2);
+  font: var(--d-body-sm);
+
+  &__item {
+    color: var(--d-text-muted);
+    text-decoration: none;
+    transition: var(--d-transition-colors);
+
+    &:hover { color: var(--d-text-link); }
+    &--active { color: var(--d-text); pointer-events: none; }
+  }
+
+  &__sep {
+    color: var(--d-text-faint);
+    font-size: var(--d-text-xs);
+  }
+}
+
+// ── Page Header ──
+.d-page-header {
+  @include d-flex-between;
+  padding: var(--d-space-6);
+  flex-wrap: wrap;
+  gap: var(--d-space-4);
+
+  &__title {
+    font: var(--d-h2);
+  }
+
+  &__subtitle {
+    font: var(--d-body);
+    color: var(--d-text-muted);
+    margin-top: var(--d-space-1);
+  }
+
+  &__actions {
+    @include d-flex-center;
+    gap: var(--d-space-3);
+  }
+}
+
+// ── Page Container ──
+.d-page {
+  padding: var(--d-space-6);
+  animation: d-page-enter var(--d-duration-slow) var(--d-ease-out);
+}
+
+@keyframes d-page-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// ── Content Area ──
+.d-content {
+  @include d-card;
+}
+
+// ── Sticky Actions ──
+.d-sticky-actions {
+  position: sticky;
+  bottom: 0;
+  padding: var(--d-space-4) var(--d-space-5);
+  background: var(--d-surface);
+  border-top: var(--d-border-width) solid var(--d-border);
+  @include d-flex-between;
+}
+
+// ── Responsive ──
+@include d-tablet {
+  .d-sidebar {
+    width: var(--d-sidebar-collapsed-width);
+    & .d-sidebar__text,
+    & .d-sidebar__group-label { display: none; }
+  }
+  .d-main { margin-inline-end: var(--d-sidebar-collapsed-width); }
+  .d-page { padding: var(--d-space-4); }
+  .d-page-header { padding: var(--d-space-4); }
+  .d-topbar { padding: 0 var(--d-space-4); }
+}
+
+@include d-mobile {
+  .d-sidebar {
+    width: 0;
+    & .d-sidebar__text,
+    & .d-sidebar__group-label { display: none; }
+  }
+  .d-main { margin-inline-end: 0; }
+  .d-page { padding: var(--d-space-3); }
+}

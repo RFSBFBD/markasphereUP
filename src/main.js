@@ -5,11 +5,23 @@ import { createPinia } from 'pinia'
 import i18n from './i18n'
 
 import './styles/main.scss'
+import { loadSiteSettings, SITE } from './components/constants/site'
 
-const app = createApp(App)
+async function bootstrap() {
+  await loadSiteSettings()
 
-app.use(router)
-app.use(createPinia())
-app.use(i18n)
+  if (SITE.favicon) {
+    const link = document.querySelector('link[rel="icon"]')
+    if (link) link.href = SITE.favicon
+  }
 
-app.mount('#app')
+  const app = createApp(App)
+
+  app.use(router)
+  app.use(createPinia())
+  app.use(i18n)
+
+  app.mount('#app')
+}
+
+bootstrap()

@@ -1,5 +1,5 @@
 <template>
-  
+   
   <BaseSection id="portfolio">
     <div class="portfolio">
       <div class="portfolio__header" ref="headerRef">
@@ -10,53 +10,67 @@
         </p>
       </div>
 
-      <div class="portfolio__filters" ref="filtersRef">
-        <button
-          v-for="cat in localizedCategories"
-          :key="cat.id"
-          class="portfolio__filter-btn"
-          :class="{ 'portfolio__filter-btn--active': activeFilter === cat.id }"
-          :aria-pressed="activeFilter === cat.id"
-          @click="setFilter(cat.id)"
-          ref="filterBtnRefs"
-        >
-          {{ cat.label }}
-        </button>
+      <div v-if="loading" class="portfolio__state portfolio__state--loading">
+        {{ t('common.loading') }}
       </div>
 
-      <div class="portfolio__slider" ref="sliderRef">
-        <button
-          class="portfolio__nav portfolio__nav--prev"
-          @click="slidePrev"
-          aria-label="Previous projects"
-          type="button"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M15 18l-6-6 6-6"/>
-          </svg>
-        </button>
+      <div v-else-if="error" class="portfolio__state portfolio__state--error">
+        {{ t('common.error') }}
+      </div>
 
-        <div class="portfolio__track" ref="trackRef">
-          <PortfolioCard
-            v-for="item in filteredProjects"
-            :key="item.id"
-            :project="item"
-            :locale="locale"
-            :suppress-click="suppressClick"
-          />
+      <template v-else>
+        <div class="portfolio__filters" ref="filtersRef">
+          <button
+            v-for="cat in localizedCategories"
+            :key="cat.id"
+            class="portfolio__filter-btn"
+            :class="{ 'portfolio__filter-btn--active': activeFilter === cat.id }"
+            :aria-pressed="activeFilter === cat.id"
+            @click="setFilter(cat.id)"
+            ref="filterBtnRefs"
+          >
+            {{ cat.label }}
+          </button>
         </div>
 
-        <button
-          class="portfolio__nav portfolio__nav--next"
-          @click="slideNext"
-          aria-label="Next projects"
-          type="button"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18l6-6-6-6"/>
-          </svg>
-        </button>
-      </div>
+        <div v-if="!filteredProjects.length" class="portfolio__state portfolio__state--empty">
+          {{ t('portfolio.empty') }}
+        </div>
+
+        <div v-else class="portfolio__slider" ref="sliderRef">
+          <button
+            class="portfolio__nav portfolio__nav--prev"
+            @click="slidePrev"
+            aria-label="Previous projects"
+            type="button"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+
+          <div class="portfolio__track" ref="trackRef">
+            <PortfolioCard
+              v-for="item in filteredProjects"
+              :key="item.id"
+              :project="item"
+              :locale="locale"
+              :suppress-click="suppressClick"
+            />
+          </div>
+
+          <button
+            class="portfolio__nav portfolio__nav--next"
+            @click="slideNext"
+            aria-label="Next projects"
+            type="button"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+      </template>
 
       <div class="portfolio__cta">
         <RouterLink :to="{ name: 'portfolio' }" class="portfolio__btn">
@@ -71,18 +85,23 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import BaseSection from '@/components/base/BaseSection.vue'
 import PortfolioCard from '@/components/portfolio/PortfolioCard.vue'
-import { projects, categories } from '@/data/portfolio'
+import { projectsPublicService } from '@/data/portfolio/projects/publicService'
+import { PORTFOLIO_FILTERS, getCategoryLabel } from '@/constants/categories'
 import { useScrollReveal, useStagger } from '@/composables/animations/useMotionSystem'
 import { useHoverSystem } from '@/composables/animations/useHoverSystem'
 import { MOTION } from '@/composables/animations/motion.config'
 import { createSlider } from '@/composables/services/PortfolioSlider'
 import { getSliderSpeed } from '@/composables/services/slider.config'
 import '@/styles/sections/portfolio.css'
+
+const props = defineProps({
+  featuredOnly: { type: Boolean, default: false }
+})
 
 const slider = createSlider()
 const { slideNext, slidePrev, suppressClick } = slider
@@ -101,20 +120,48 @@ const trackRef = ref(null)
 const sliderRef = ref(null)
 
 const activeFilter = ref('all')
+const projects = ref([])
+const loading = ref(true)
+const error = ref(false)
+
+// Order: featured first (by display_order), then newest (created_at DESC),
+// then remaining. Single fetch, sorted client-side to avoid extra queries.
+function sortProjects(list) {
+  return [...list].sort((a, b) => {
+    const af = a.featured ? 1 : 0
+    const bf = b.featured ? 1 : 0
+    if (af !== bf) return bf - af
+    const ao = a.displayOrder || 0
+    const bo = b.displayOrder || 0
+    if (ao !== bo) return ao - bo
+    const at = new Date(a.createdAt || 0).getTime()
+    const bt = new Date(b.createdAt || 0).getTime()
+    return bt - at
+  })
+}
+
+const allProjects = computed(() =>
+  props.featuredOnly
+    ? projects.value.filter(p => p.featured)
+    : projects.value
+)
 
 const filteredProjects = computed(() => {
-  if (activeFilter.value === 'all') return projects
-  return projects.filter(p => p.category === activeFilter.value)
+  const base = allProjects.value
+  if (activeFilter.value === 'all') return base
+  return base.filter(p => p.category === activeFilter.value)
 })
 
 const localizedCategories = computed(() =>
-  categories.map(cat => ({
-    id: cat.id,
-    label: locale.value === 'ar' ? cat.label : cat.labelEn
+  PORTFOLIO_FILTERS.map(id => ({
+    id,
+    label: getCategoryLabel(id, locale.value)
   }))
 )
 
 function startSlider() {
+  if (!trackRef.value || !trackRef.value.children.length) return
+  slider.destroy()
   slider.init(trackRef.value, sliderRef.value, getSliderSpeed('portfolio'), (clone) => {
     imageCardHover(clone)
   })
@@ -134,6 +181,20 @@ const setFilter = async (categoryId) => {
   activeFilter.value = categoryId
   await nextTick()
   startSlider()
+}
+
+async function loadProjects() {
+  loading.value = true
+  error.value = false
+  try {
+    const result = await projectsPublicService.getAll({ perPage: 100, published: true })
+    projects.value = sortProjects(result.data || [])
+  } catch (e) {
+    error.value = true
+    if (import.meta.env.DEV) console.error('[PortfolioSection] load failed', e)
+  } finally {
+    loading.value = false
+  }
 }
 
 onMounted(() => {
@@ -156,6 +217,12 @@ onMounted(() => {
   }
 })
 
+watch(filteredProjects, async (list) => {
+  if (!list.length) return
+  await nextTick()
+  startSlider()
+})
+
 onUnmounted(() => {
   if (filterTween) {
     if (filterTween.scrollTrigger) filterTween.scrollTrigger.kill()
@@ -164,6 +231,8 @@ onUnmounted(() => {
   }
   slider.destroy()
 })
+
+loadProjects()
 </script>
 
 <style scoped>
@@ -255,4 +324,14 @@ onUnmounted(() => {
   .portfolio__filters { gap: var(--space-xs); overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: var(--space-xs); -webkit-overflow-scrolling: touch; }
   .portfolio__filter-btn { padding: 8px 16px; font-size: var(--text-small); white-space: nowrap; flex-shrink: 0; }
 }
+
+.portfolio__state {
+  text-align: center;
+  font-family: var(--font-ar-body);
+  font-size: var(--text-body-lg);
+  color: var(--color-text-muted);
+  padding: var(--space-3xl) 0;
+}
+
+.portfolio__state--error { color: var(--color-accent); }
 </style>

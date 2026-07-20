@@ -37,7 +37,7 @@ import { MOTION } from '@/composables/animations/motion.config'
 import { dirSign } from '@/composables/utils/direction'
 import gsap from 'gsap'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const router = useRouter()
 
 const props = defineProps({
@@ -51,7 +51,7 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const { buildLink } = useWhatsApp()
-const whatsappLink = buildLink()
+const whatsappLink = buildLink('', locale.value)
 
 const lockScroll = () => {
   const scrollY = window.scrollY

@@ -1,0 +1,117 @@
+// ============================================
+// DASHBOARD — Table Styles
+// ============================================
+
+@use '../mixins/d-mixins' as *;
+
+.d-table-wrap {
+  overflow-x: auto;
+  @include d-scrollbar;
+}
+
+.d-table {
+  width: 100%;
+  border-collapse: collapse;
+  font: var(--d-body);
+
+  // ── Header ──
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  th {
+    padding: var(--d-space-3) var(--d-space-4);
+    font: 500 var(--d-text-xs) / 1 var(--d-font-sans);
+    color: var(--d-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--d-ls-wide);
+    background: var(--d-surface-sunken);
+    border-bottom: var(--d-border-width) solid var(--d-border);
+    text-align: start;
+    white-space: nowrap;
+    user-select: none;
+
+    &.sortable {
+      cursor: pointer;
+      transition: var(--d-transition-colors);
+      &:hover { color: var(--d-text); background: var(--d-surface-hover); }
+    }
+  }
+
+  // ── Body ──
+  td {
+    padding: var(--d-space-3) var(--d-space-4);
+    border-bottom: var(--d-border-width) solid var(--d-border-light);
+    vertical-align: middle;
+    color: var(--d-text-secondary);
+  }
+
+  // ── Rows ──
+  tbody tr {
+    transition: var(--d-transition-colors);
+
+    &:hover { background: var(--d-surface-hover); }
+    &.selected { background: var(--d-brand-primary-light); }
+  }
+
+  // ── Striped ──
+  &--striped tbody tr:nth-child(even) {
+    background: var(--d-surface-sunken);
+    &:hover { background: var(--d-surface-hover); }
+  }
+
+  // ── Compact ──
+  &--compact {
+    th, td { padding: var(--d-space-2) var(--d-space-3); }
+  }
+
+  // ── Relaxed ──
+  &--relaxed {
+    th, td { padding: var(--d-space-4) var(--d-space-5); }
+  }
+
+  // ── Cell Actions ──
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--d-space-1);
+    justify-content: flex-end;
+  }
+
+  // ── Cell Checkbox ──
+  &__check {
+    width: 40px;
+    text-align: center;
+  }
+
+  // ── Loading State ──
+  &__loading {
+    text-align: center;
+    padding: var(--d-space-12) !important;
+  }
+
+  // ── Empty State ──
+  &__empty {
+    text-align: center;
+    padding: var(--d-space-12);
+    color: var(--d-text-muted);
+  }
+
+  // ── Sort Icon ──
+  &__sort-icon {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-inline-start: var(--d-space-1);
+    vertical-align: middle;
+
+    span {
+      font-size: 8px;
+      line-height: 1;
+      color: var(--d-text-faint);
+      &.active { color: var(--d-brand-primary); }
+    }
+  }
+}

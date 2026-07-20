@@ -1,0 +1,6 @@
+-- ============================================
+-- MarkaSphere Database Seed
+-- ============================================
+-- This file contains seed data for development.
+-- Run with: supabase db reset (includes seed)
+-- ============================================

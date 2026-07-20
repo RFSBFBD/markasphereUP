@@ -24,7 +24,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useHoverSystem } from '@/composables/animations/useHoverSystem'
-import { getCategoryById } from '@/data/portfolio'
+import { getCategoryLabel } from '@/constants/categories'
 import { optimizeUrl } from '@/composables/services/image'
 
 const props = defineProps({
@@ -43,11 +43,9 @@ function onCardClick(e) {
 const { imageCardHover } = useHoverSystem()
 const cardRef = ref(null)
 
-const categoryLabel = computed(() => {
-  const cat = getCategoryById(props.project.category)
-  if (!cat) return props.project.category
-  return props.locale === 'ar' ? cat.label : cat.labelEn
-})
+const categoryLabel = computed(() =>
+  getCategoryLabel(props.project.category, props.locale)
+)
 
 const cardImageStyle = computed(() => {
   if (!props.project.thumbnail) return { background: props.project.gradient }

@@ -1,5 +1,5 @@
 <template>
-  <div class="services__card" ref="cardRef" role="button" tabindex="0" @click="openWhatsApp(service.title)" @keydown.enter.prevent="openWhatsApp(service.title)" @keydown.space.prevent="openWhatsApp(service.title)">
+  <div class="services__card" ref="cardRef" role="button" tabindex="0" @click="openWhatsApp(service.title, locale)" @keydown.enter.prevent="openWhatsApp(service.title, locale)" @keydown.space.prevent="openWhatsApp(service.title, locale)">
     <div class="services__card-glow card-glow"></div>
     <div class="services__card-icon card-icon" v-html="service.icon"></div>
     <h3 class="services__card-title">{{ service.title }}</h3>
@@ -14,6 +14,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useHoverSystem } from '@/composables/animations/useHoverSystem'
 import { useWhatsApp } from '@/composables/services/useWhatsApp'
 
@@ -21,6 +22,7 @@ const props = defineProps({
   service: { type: Object, required: true }
 })
 
+const { locale } = useI18n()
 const { cardHover } = useHoverSystem()
 const { openWhatsApp } = useWhatsApp()
 const cardRef = ref(null)

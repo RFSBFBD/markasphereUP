@@ -53,10 +53,10 @@
       </div>
     </div>
 
-    <div ref="scrollIndicator" class="hero__scroll">
-      <span>Scroll</span>
-      <div class="hero__scroll-line"></div>
-    </div>
+      <div ref="scrollIndicator" class="hero__scroll">
+        <span>{{ t('hero.scroll') }}</span>
+        <div class="hero__scroll-line"></div>
+      </div>
 
     <div class="hero__side-text">
       <span>MarkaSphere © 2025</span>
@@ -73,13 +73,13 @@ import { useWhatsApp } from '@/composables/services/useWhatsApp'
 import { MOTION } from '@/composables/animations/motion.config'
 import gsap from 'gsap'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const { buttonHover } = useHoverSystem()
 const { parallaxBg } = useParallaxSystem()
 const { buildLink } = useWhatsApp()
 
-const whatsappLink = buildLink()
+const whatsappLink = buildLink('', locale.value)
 
 const tag = ref(null)
 const line1 = ref(null)

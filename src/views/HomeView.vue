@@ -4,7 +4,7 @@
   <Section2 />
   <ServicesSection />
   <Section4 />
-  <PortfolioSection />
+  <PortfolioSection :featured-only="true" />
   <TeamSection />
   <Section6 />
   <PartnersSection />

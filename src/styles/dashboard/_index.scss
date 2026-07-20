@@ -1,0 +1,27 @@
+// ============================================
+// DASHBOARD UI — Master Entry
+// ============================================
+
+// ── Tokens ──
+@use '../tokens/d-colors';
+@use '../tokens/d-typography';
+@use '../tokens/d-spacing';
+@use '../tokens/d-motion';
+
+// ── Base ──
+@use 'd-base';
+
+// ── Components ──
+@use 'd-components';
+
+// ── Layout ──
+@use 'd-layout';
+
+// ── Tables ──
+@use 'd-tables';
+
+// ── Forms ──
+@use 'd-forms';
+
+// ── Utils (Notifications, Loading, Empty, Errors, Buttons) ──
+@use 'd-utils';

@@ -6,23 +6,14 @@
         <h2 class="section6__title">{{ t('testimonials.title') }}</h2>
       </div>
 
-      <div class="testimonials__slider" ref="sliderRef">
-        <button
-          class="testimonials__nav testimonials__nav--prev"
-          @click="slidePrev"
-          aria-label="Previous testimonials"
-          type="button"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M15 18l-6-6 6-6"/>
-          </svg>
-        </button>
+      <div v-if="!testimonials.length" class="section6__state">{{ t('testimonials.empty') }}</div>
 
+      <div v-else class="testimonials__viewport" ref="viewportRef">
         <div class="testimonials__track" ref="trackRef">
           <div
             class="portfolio-card"
-            v-for="item in testimonials"
-            :key="item.id"
+            v-for="item in loopItems"
+            :key="item.__key"
           >
             <TestimonialCard
               :testimonial="item"
@@ -30,54 +21,129 @@
             />
           </div>
         </div>
-
-        <button
-          class="testimonials__nav testimonials__nav--next"
-          @click="slideNext"
-          aria-label="Next testimonials"
-          type="button"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18l6-6-6-6"/>
-          </svg>
-        </button>
       </div>
     </div>
   </BaseSection>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BaseSection from '@/components/base/BaseSection.vue'
 import TestimonialCard from '@/components/shared/TestimonialCard.vue'
-import { testimonials } from '@/data/site/testimonials'
+import { SITE, loadSiteSettings } from '@/components/constants/site'
+import { testimonials as testimonialsFallback } from '@/data/site/testimonials'
 import { useScrollReveal } from '@/composables/animations/useMotionSystem'
-import { createSlider } from '@/composables/services/PortfolioSlider'
-import { getSliderSpeed } from '@/composables/services/slider.config'
 import { useHoverSystem } from '@/composables/animations/useHoverSystem'
+import gsap from 'gsap'
 import '@/styles/sections/testimonials.css'
 
 const { t, locale } = useI18n()
 const { headerReveal } = useScrollReveal()
 const { cardHover } = useHoverSystem()
 
-const slider = createSlider()
-const { slideNext, slidePrev } = slider
-
 const headerRef = ref(null)
-const sliderRef = ref(null)
+const viewportRef = ref(null)
 const trackRef = ref(null)
 
-onMounted(() => {
-  headerReveal(headerRef.value)
-  slider.init(trackRef.value, sliderRef.value, getSliderSpeed('testimonials'), (clone) => {
-    cardHover(clone)
+const testimonials = computed(() => {
+  const db = SITE.testimonials
+  return Array.isArray(db) && db.length ? db : testimonialsFallback
+})
+
+// Duplicate the list so the marquee can loop seamlessly.
+const loopItems = computed(() =>
+  testimonials.value.concat(testimonials.value).map((item, i) => ({ ...item, __key: i }))
+)
+
+const prefersReducedMotion = typeof window !== 'undefined'
+  ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  : false
+
+let cleanup = null
+
+function startMarquee() {
+  const track = trackRef.value
+  const viewport = viewportRef.value
+  if (!track || !viewport || track.children.length === 0) return
+
+  const setX = gsap.quickSetter(track, 'x', 'px')
+  let x = 0
+  let paused = false
+  let inView = true
+  let observer = null
+  const speed = 0.55 // px per frame — very slow, luxurious
+
+  function onEnter() { paused = true }
+  function onLeave() { paused = false }
+
+  viewport.addEventListener('mouseenter', onEnter)
+  viewport.addEventListener('mouseleave', onLeave)
+  viewport.addEventListener('focusin', onEnter)
+  viewport.addEventListener('focusout', onLeave)
+
+  if ('IntersectionObserver' in window) {
+    observer = new IntersectionObserver((entries) => {
+      inView = entries.some((e) => e.isIntersecting)
+    }, { rootMargin: '120px 0px' })
+    observer.observe(viewport)
+  }
+
+  requestAnimationFrame(() => {
+    const halfWidth = track.scrollWidth / 2
+    if (halfWidth <= 0) return
+    setX(0)
+
+    function update() {
+      if (paused || !inView) return
+      x -= speed * gsap.ticker.deltaRatio()
+      if (x <= -halfWidth) x += halfWidth
+      setX(x)
+    }
+
+    gsap.ticker.add(update)
+
+    cleanup = () => {
+      gsap.ticker.remove(update)
+      if (observer) observer.disconnect()
+      viewport.removeEventListener('mouseenter', onEnter)
+      viewport.removeEventListener('mouseleave', onLeave)
+      viewport.removeEventListener('focusin', onEnter)
+      viewport.removeEventListener('focusout', onLeave)
+      gsap.set(track, { x: 0 })
+    }
   })
+}
+
+function init() {
+  if (prefersReducedMotion) return
+  headerReveal(headerRef.value)
+  if (trackRef.value) {
+    ;[...trackRef.value.children].forEach((el) => {
+      const card = el.querySelector('.testimonial-card')
+      if (card) cardHover(card)
+    })
+  }
+  startMarquee()
+}
+
+onMounted(async () => {
+  await loadSiteSettings()
+  if (testimonials.value.length) {
+    await nextTick()
+    init()
+  }
+})
+
+watch(testimonials, async (list) => {
+  if (!list.length) return
+  await nextTick()
+  if (cleanup) { cleanup(); cleanup = null }
+  init()
 })
 
 onUnmounted(() => {
-  slider.destroy()
+  if (cleanup) cleanup()
 })
 </script>
 
@@ -107,5 +173,41 @@ onUnmounted(() => {
 
 @media (max-width: 640px) {
   .section6__title { font-size: var(--text-h2); }
+}
+
+.section6__state {
+  text-align: center;
+  font-family: var(--font-ar-body);
+  font-size: var(--text-body-lg);
+  color: var(--color-text-muted);
+  padding: var(--space-3xl) 0;
+}
+
+.testimonials__viewport {
+  overflow: hidden;
+  width: 100%;
+  direction: ltr;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.testimonials__track {
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+  gap: var(--space-lg);
+  will-change: transform;
+}
+
+.testimonials__track .portfolio-card {
+  width: 400px;
+}
+
+@media (max-width: 1024px) {
+  .testimonials__track .portfolio-card { width: 340px; }
+}
+
+@media (max-width: 640px) {
+  .testimonials__track .portfolio-card { width: 280px; }
 }
 </style>

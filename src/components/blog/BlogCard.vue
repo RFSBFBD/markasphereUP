@@ -1,7 +1,7 @@
 <template>
   <article class="blog-card" ref="cardRef">
     <div class="blog-card__image" :style="{ background: article.gradient }">
-      <span class="blog-card__category">{{ article.category }}</span>
+      <span class="blog-card__category">{{ categoryLabel }}</span>
       <div class="blog-card__read">
         <svg class="card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10"/>
@@ -16,7 +16,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
         </svg>
-        <span>{{ article.date }}</span>
+        <span>{{ formattedDate }}</span>
       </div>
       <h3 class="blog-card__title">{{ locale === 'ar' ? article.titleAr : article.titleEn }}</h3>
       <p class="blog-card__excerpt">{{ locale === 'ar' ? article.excerptAr : article.excerptEn }}</p>
@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHoverSystem } from '@/composables/animations/useHoverSystem'
 
@@ -41,9 +41,39 @@ const props = defineProps({
   locale: { type: String, default: 'ar' }
 })
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const { cardHover } = useHoverSystem()
 const cardRef = ref(null)
+
+const BLOG_CATEGORY_LABELS = {
+  branding: { ar: 'الهوية التجارية', en: 'Branding' },
+  marketing: { ar: 'التسويق', en: 'Marketing' },
+  web: { ar: 'الويب', en: 'Web' },
+  content: { ar: 'المحتوى', en: 'Content' },
+  strategy: { ar: 'الاستراتيجية', en: 'Strategy' }
+}
+
+const categoryLabel = computed(() => {
+  const c = props.article?.category
+  if (!c) return ''
+  const m = BLOG_CATEGORY_LABELS[c]
+  if (!m) return c
+  return locale.value === 'ar' ? m.ar : m.en
+})
+
+const formattedDate = computed(() => {
+  const raw = props.article?.date
+  if (!raw) return ''
+  const d = new Date(raw)
+  if (isNaN(d.getTime())) return raw
+  try {
+    return new Intl.DateTimeFormat(locale.value === 'ar' ? 'ar' : 'en', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    }).format(d)
+  } catch {
+    return raw
+  }
+})
 
 onMounted(() => {
   if (cardRef.value) cardHover(cardRef.value)
